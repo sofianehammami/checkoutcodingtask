@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class App {
+public class RatesAPICall {
     public static void main(String[] args) throws Exception {
         var httpClient = HttpClient.newBuilder().build();
 

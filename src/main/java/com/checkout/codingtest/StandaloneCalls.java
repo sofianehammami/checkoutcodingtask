@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class CodeTests {
+public class StandaloneCalls {
 
     public static void main(String[] args) {
         System.out.println(payLink());
