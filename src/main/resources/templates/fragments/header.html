@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+
+    <!-- this is header -->
+    <div th:fragment="header">
+        <title >Basket summary</title>
+        <!--TODO proveriti jel moguce ubaciti ovu vrednost-->
+        <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+        <link th:href="@{/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen"/>
+
+        <script th:src="@{/js/jquery.min.js}"></script>
+
+    </div>
+
+</head>
+
+<body>
+
+<!-- this is header -->
+<div th:fragment="navbar">
+    <nav class="navbarcheckout" style="background-color: #8C9E6E;border-color: #8C9E6E;">
+        <div class="container">
+            <div id="navbar" class="collapse navbar-collapse navbar-right">
+                <!-- show shoppingCart only if user is not yet authenticated -->
+                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+                    <li class="active"><a th:href="@{/checkout}" style="color: #FFFFFD;">Basket summary</a></li>
+                </ul>
+
+            </div>
+            <img th:attr="src=@{/img/logo.png}" />
+        </div>
+    </nav>
+</div>
+
+</body>
+</html>

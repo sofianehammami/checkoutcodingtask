@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="/fragments/header :: header"/>
+    <script th:src="@{/js/framesv2.min.js}"></script>
+
+    <script th:src="@{/js/app.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/normalize.css}" />
+</head>
+
+<body>
+<div th:replace="/fragments/header :: navbar"/>
+
+<div class="container">
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col" style="color: #323416;"></th>
+            <th scope="col" style="color: #323416;">Description</th>
+            <th scope="col" style="color: #323416;">Price</th>
+            <th scope="col" style="color: #323416;">Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row" style="color: #323416;">1</th>
+            <td style="color: #8C9E6E;">Black T-shirts M size</td>
+            <td style="color: #8C9E6E;">10</td>
+            <td style="color: #8C9E6E;">3</td>
+        </tr>
+        <tr>
+            <th scope="row" style="color: #323416;">2</th>
+            <td style="color: #8C9E6E;">White T-shirts L size</td>
+            <td style="color: #8C9E6E;">5</td>
+            <td style="color: #8C9E6E;">3</td>
+        </tr>
+        <tr>
+            <th scope="row" style="color: #323416;">3</th>
+            <td style="color: #8C9E6E;">Apple T-shirts std size</td>
+            <td style="color: #8C9E6E;">2</td>
+            <td style="color: #8C9E6E;">2</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="row panel-body">
+        <label for="inputTotalAmount" class="col-sm-1 col-form-label">Total</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputTotalAmount" value="49" readonly>
+        </div>
+        <label for="select-country" class="col-sm-2 col-form-label">Select country</label>
+        <div class="col-sm-3">
+            <select id="select-country" class="form-control">
+                <option id="germany">Germany - EUR</option>
+                <option id="uk">United Kingdom - GBP</option>
+            </select>
+        </div>
+    </div>
+    <div class="row panel-body">
+        <div class="col-sm-10 text-center" >
+            <a id="paylink" ></a>
+        </div>
+    </div>
+    <div class="row panel-body">
+        <div class="col-sm-10 text-center" >
+            <span id="paychoice" style="display: none">OR</span>
+        </div>
+    </div>
+    <div class="row panel-body">
+        <form
+                id="payment-form"
+                method="POST"
+                th:action="@{/charge-card}"
+        >
+            <label for="card-number">Card number</label>
+            <div class="input-container card-number">
+                <div class="icon-container">
+                    <img
+                            id="icon-card-number"
+                            th:src="@{/img/card-icons/card.svg}"
+                            alt="PAN"
+                    />
+                </div>
+                <div class="card-number-frame"></div>
+                <div class="icon-container payment-method">
+                    <img id="logo-payment-method" />
+                </div>
+                <div class="icon-container">
+                    <img id="icon-card-number-error" th:src="@{/img/card-icons/error.svg}" />
+                </div>
+            </div>
+
+            <div class="date-and-code">
+                <div>
+                    <label for="expiry-date">Expiry date</label>
+                    <div class="input-container expiry-date">
+                        <div class="icon-container">
+                            <img
+                                    id="icon-expiry-date"
+                                    th:src="@{/img/card-icons/exp-date.svg}"
+                                    alt="Expiry date"
+                            />
+                        </div>
+                        <div class="expiry-date-frame"></div>
+                        <div class="icon-container">
+                            <img
+                                    id="icon-expiry-date-error"
+                                    th:src="@{/img/card-icons/error.svg}"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="cvv">Security code</label>
+                    <div class="input-container cvv">
+                        <div class="icon-container">
+                            <img id="icon-cvv" th:src="@{/img/card-icons/cvv.svg}" alt="CVV" />
+                        </div>
+                        <div class="cvv-frame"></div>
+                        <div class="icon-container">
+                            <img id="icon-cvv-error" th:src="@{/img/card-icons/error.svg}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="pay-button">PAY</button>
+
+            <div>
+                <span class="error-message error-message__card-number"></span>
+                <span class="error-message error-message__expiry-date"></span>
+                <span class="error-message error-message__cvv"></span>
+            </div>
+
+            <p class="success-payment-message"></p>
+        </form>
+    </div>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
