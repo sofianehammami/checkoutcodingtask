@@ -49,7 +49,7 @@
     </table>
 
     <div class="row panel-body">
-        <label for="inputTotalAmount" class="col-sm-1 col-form-label">Total</label>
+        <label for="inputTotalAmount" class="col-sm-2 col-form-label">Total</label>
         <div class="col-sm-3">
             <input type="text" class="form-control" id="inputTotalAmount" value="49" readonly>
         </div>
@@ -57,7 +57,7 @@
         <div class="col-sm-3">
             <select id="select-country" class="form-control">
                 <option id="germany">Germany - EUR</option>
-                <option id="uk">United Kingdom - GBP</option>
+                <option id="uk" selected>United Kingdom - GBP</option>
             </select>
         </div>
     </div>
@@ -69,6 +69,16 @@
     <div class="row panel-body">
         <div class="col-sm-10 text-center" >
             <span id="paychoice" style="display: none">OR</span>
+        </div>
+    </div>
+    <div class="row panel-body">
+        <label for="cardholdername" class="col-sm-3 col-form-label" id="cardholdernamelabel">Card holder name</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" id="cardholdername" placeholder="Enter card holder name">
+        </div>
+        <label for="cardholderemail" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-3">
+            <input type="email" class="form-control" id="cardholderemail" placeholder="Enter email">
         </div>
     </div>
     <div class="row panel-body">

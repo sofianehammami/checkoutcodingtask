@@ -5,8 +5,7 @@ $(document).ready(function(){
     var form = document.getElementById("payment-form");
     Frames.init({
       publicKey: 'pk_test_4296fd52-efba-4a38-b6ce-cf0d93639d8a',
-      localization: 'DE-DE',
-      debug: true
+      localization: 'EN-GB'
     });
     var logos = generateLogos();
     function generateLogos() {
@@ -143,7 +142,6 @@ $(document).ready(function(){
         hiddenAmount.value = document.getElementById("inputTotalAmount").text;
         form.appendChild(hiddenAmount);
         form.submit();
-        alert("submit");
     }
 
     Frames.addEventHandler(
@@ -165,7 +163,12 @@ $(document).ready(function(){
     form.addEventListener("submit", onSubmit);
     function onSubmit(event) {
       event.preventDefault();
+      Frames.cardholder = {
+              name: document.getElementById("cardholdername").value,
+              email: document.getElementById("cardholderemail").value,
+            };
       Frames.submitCard();
+      console.log(JSON.stringify(Frames.cardholder));
     }
 
     const changeSelected = (e) => {
@@ -173,17 +176,32 @@ $(document).ready(function(){
         var currency = document.getElementById("select-country").value;
         var amount = document.getElementById("inputTotalAmount").value;
         var currencyCode = "";
+        var payLinkPref = "";
         if(currency.endsWith("GBP")) {
             // unable to call Checkout.com rates API. I always get 401 HTTP error
             amount = amount * 0.86;
             currencyCode = "GBP";
+            Frames.init({
+                  publicKey: 'pk_test_4296fd52-efba-4a38-b6ce-cf0d93639d8a',
+                  localization: 'EN-GB'
+                });
+            document.getElementById("cardholdername").placeholder = "Enter card holder name";
+            document.getElementById("cardholdernamelabel").innerHTML = "Card holder name";
+            document.getElementById("cardholderemail").placeholder = "Enter email";
+            payLinkPref = "Pay";
         } else {
             amount = 49;
             currencyCode = "EUR";
+            Frames.init({
+                   publicKey: 'pk_test_4296fd52-efba-4a38-b6ce-cf0d93639d8a',
+                   localization: 'DE-DE'
+            });
+            document.getElementById("cardholdername").placeholder = "Geben Sie den Namen des Karteninhabers ein";
+            document.getElementById("cardholdernamelabel").innerHTML = "Name des Karteninhabers";
+            document.getElementById("cardholderemail").placeholder = "Email eingeben";
+            payLinkPref = "Zahlen";
         }
         document.getElementById("inputTotalAmount").value = amount;
-        console.log(currency);
-        console.log(amount);
         $.ajax({
                 url: "https://localhost:8443/paymentlink?amount="+amount*100+"&currency="+currency,
                 contentType: "application/json",
@@ -191,12 +209,9 @@ $(document).ready(function(){
                 success: function(result){
                     console.log(result);
                     document.getElementById("paylink").href = result;
-                    document.getElementById("paylink").text = "Pay "+ amount + " "+ currencyCode;
+                    document.getElementById("paylink").text = payLinkPref + " "+ amount + " "+ currencyCode;
                     document.getElementById("paychoice").style.display="block";
-                },
-                fail: function() {
-                     alert( "error" );
-                   }
+                }
             })
     };
     document.getElementById("select-country").addEventListener("change", changeSelected);
